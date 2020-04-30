@@ -9,7 +9,7 @@ class UsuarioAdmin(UserAdmin):
     add_form = CrearUsuarioForm
     form = ModificarUsuarioForm
     model = Usuario
-    list_display = ["username", "email"]
+    list_display = ["username"]
 
 admin.site.register(Usuario, UsuarioAdmin)
 # Register your models here.

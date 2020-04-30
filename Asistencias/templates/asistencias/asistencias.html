@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block titulo %}Lista de Asistencias
+
+<a class="btn btn-info" href="/registrarAsistencia/" role="button">
+    Nueva
+</a>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/busqueda.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+        <table id="datos" class="table table-striped">
+            <thead>
+                <tr class="table100-head">
+                    <th class="column1">No.</th> 
+                    <th class="column1">Matrícula</th>  
+                    <th class="column2">Nombre</th>  
+                    <th class="column3">Plática</th>  
+                    <th class="column3">Fecha</th> 
+                    <th class="column3">Asistencia</th>  
+                    <th class="column3">Acciones</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for asistencia in info.asistencias %}
+                <tr>
+                    <td class="column1">{{ asistencia.idEstudiante.matricula }}</td>  
+                    <td class="column2">{{ asistencia.idEstudiante.nombre }} {{ asistencia.idEstudiante.apellido_paterno }} {{ asistencia.idEstudiante.apellido_materno }}</td>  
+                    <td class="column3">{{ asistencia.idPlatica.nombre }}</td>  
+                    <td class="column3">{{ asistencia.idPlatica.fecha }}</td> 
+                    {% if asistencia.asistencia %}
+                        <td class="column3">Sí</td>
+                    {% else %}
+                        <td class="column3">No</td>
+                    {% endif %}
+                    <td class="column3">
+                        <a href="/detalleAsistencia/{{ asistencia.id }}"><i class="fa fa-eye" aria-hidden="true" style="color: black">Ver</i></a>
+                    </td>
+                </tr>
+                <tr class="noSearch hide">
+                    <td colspan="100"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+</div>
+{% endblock contenido %}

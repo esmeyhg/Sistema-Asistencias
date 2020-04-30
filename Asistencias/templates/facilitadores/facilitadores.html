@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block titulo %}Facilitadores
+
+<a class="btn btn-info" href="/facilitadores/registrarFacilitador/" role="button">
+    Nuevo
+</a>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/busqueda.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+        <table id="datos" class="table table-striped">
+            <thead>
+                <tr class="table100-head">
+                    <th class="column3">Nombre</th> 
+                    <th class="column3">Apellido Paterno</th>  
+                    <th class="column3">Apellido Materno</th>  
+                    <th class="column2">Nivel Académico</th>
+                    <th class="column3">Acciones</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for facilitador in info.facilitadores %}
+                <tr> 
+                    <td class="column2">{{ facilitador.nombre }}</td>  
+                    <td class="column3">{{ facilitador.apellido_paterno }}</td>  
+                    <td class="column3">{{ facilitador.apellido_materno }}</td> 
+                    <td class="column3">{{ facilitador.nivel_academico }}</td> 
+                    <td class="column3">
+                        <a href="/facilitadores/detalleFacilitador/{{ facilitador.id }}"><img src="https://img.icons8.com/android/24/000000/pencil.png" >Editar</img></a>
+                    </td></td>>
+                </tr>
+                <tr class="noSearch hide">
+                    <td colspan="100"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+</div>
+{% endblock contenido %}

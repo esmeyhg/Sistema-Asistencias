@@ -52,10 +52,10 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				{% if user.is_authenticated %}
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Mis documentos">
-					<a class="nav-link" href="/documentos/">
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Estudiantes">
+					<a class="nav-link" href="/estudiantes/">
 						<i class="fa fa-file" aria-hidden="true"></i>
-						<span class="nav-link-text">Mis documentos</span>
+						<span class="nav-link-text">Estudiantes</span>
 					</a>
 				</li>
 				<li class="nav-item dropdown">
@@ -70,12 +70,6 @@
 					</div>
 				</li>
 				{% endif %}
-				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Acerca de...">
-					<a id='videos' class="nav-link" href="/info/">
-						<i class="fa fa-info-circle" aria-hidden="true"></i>
-						<span class="nav-link-text">Acerca de...</span>
-					</a>
-				</li>
 
 			</ul>
 			<ul class="navbar-nav sidenav-toggler">
@@ -99,11 +93,11 @@
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown" id="notificaciones"></div>
 				</li>
 				<!--Buscar-->
-					{% if request.get_full_path == "/documentos/" %}
+					{% if request.get_full_path == "/estudiantes/" %}
 						<li class="nav-item">
 							<form id="buscar" action="/search/" method="POST" class="form-inline my-2 my-lg-0 mr-lg-2">{% csrf_token %}
 								<div class="input-group">
-									<input class="form-control" type="text" id="busqueda" placeholder="Buscar documentos" required name="nombre_documento">
+									<input class="form-control" type="text" id="busqueda" placeholder="Buscar">
 								</div>
 							</form>
 						</li>
@@ -172,7 +166,7 @@
 			<div class="container">
 				<div class="text-center">
 					<small class="footer-chicago">
-						Copyright © Chicago <i class="fa fa-cloud" aria-hidden="true"></i> 2018
+						Copyright © Sistema Asistencias <i class="fa fa-cloud" aria-hidden="true"></i> 2020
 					</small>
 				</div>
 			</div>
