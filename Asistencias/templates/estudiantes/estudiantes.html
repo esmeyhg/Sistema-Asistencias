@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block titulo %}Estudiantes{% endblock %}
 
@@ -39,10 +40,56 @@
 
         <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 documento" id="creador">
             <div class="card-body">
-                <a href="/registrarEstudiante/"><img src="/media/icons/baseline-note_add-24px.svg" class="img-thumbnail"></a>
+                <a href="/registrarEstudiante/"><i class="fa fa-plus"></i></a>
                 <p class="card-title text-center">Nuevo</p>
             </div>
         </div>
     </div>
+</div>
+{% endblock contenido %}
+
+{% extends "base.html" %}
+
+{% block titulo %}Facilitadores
+
+<a class="btn btn-info" href="/facilitadores/registrarFacilitador/" role="button">
+    Nuevo
+</a>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/busqueda.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+        <table id="datos" class="table table-striped">
+            <thead>
+                <tr class="table100-head">
+                    <th class="column1">Matricula</th>  
+                    <th class="column2">Nombre</th>  
+                    <th class="column3">Apellido Paterno</th>  
+                    <th class="column3">Apellido Materno</th>  
+                    <th class="column3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for estudiante in info.estudiantes %}
+                <tr> 
+                    <td class="column1">{{ estudiante.matricula }}</td>  
+                    <td class="column2">{{ estudiante.nombre }}</td>  
+                    <td class="column3">{{ estudiante.apellidoPaterno }}</td>  
+                    <td class="column3">{{ estudiante.apellidoMaterno }}</td>  
+                    <td class="column3">
+                        <a href="/detalleEstudiante/{{ estudiante.id }}"><img src="https://img.icons8.com/android/24/000000/pencil.png" >Editar</img></a>
+                    </td>
+                </tr>
+                <tr class="noSearch hide">
+                    <td colspan="100"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
 </div>
 {% endblock contenido %}

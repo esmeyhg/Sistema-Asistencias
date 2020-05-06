@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Mi perfil{% endblock %} 
+
+{% block contenido %}
+<div class="container">
+    <div class="card card-register mx-auto mt-18">
+        <div class="card-header">Información de la cuenta</div>
+
+        <div class="card-body">
+            <form action="" method="post" id="form" enctype="multipart/form-data">
+                {% csrf_token %} 
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success " value="Guardar">
+                    Guardar cambios
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="card card-register mx-auto mt-18">
+        <div class="card-header">Eliminar cuenta</div>
+        <div class="card-body">
+            <div class="row">
+                <label for="eliminar" class="col-md-8">
+                    ¿Está seguro de que desea eliminar su cuenta?
+                </label>
+                <div class=" col-md-4" style="margin: 0 auto; text-align: right;">
+                    <a data-toggle="modal" data-target="#eliminarModal">
+                        <button class="btn btn-danger">Eliminar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">¿Eliminar cuenta?
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">¿Seguro que desea eliminar su cuenta?</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                    Cancelar
+                </button>
+                <a class="btn btn-danger" href="/delete/">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
