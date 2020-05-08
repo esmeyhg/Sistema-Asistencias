@@ -1,58 +1,8 @@
 {% extends "base.html" %}
-{% load bootstrap4 %}
 
-{% block titulo %}Estudiantes{% endblock %}
+{% block titulo %}Estudiantes
 
-{% block scripts %}
-    <script src="/static/js/busqueda.js"></script>
-{% endblock scripts %}
-
-{% block contenido %}
-
-<div class="container-fluid">
-    <div class="row" id="fila_docs">
-        <table >
-            <thead>
-                <tr class="table100-head">
-                    <th class="column1">Matricula</th>  
-                    <th class="column2">Nombre</th>  
-                    <th class="column3">Apellido Paterno</th>  
-                    <th class="column3">Apellido Materno</th>  
-                    <th class="column3">Acciones</th> 
-                </tr>
-            </thead>
-            <tbody>
-                {% for estudiante in info.estudiantes %}
-                <tr>
-                    <td class="column1">{{ estudiante.matricula }}</td>  
-                    <td class="column2">{{ estudiante.nombre }}</td>  
-                    <td class="column3">{{ estudiante.apellidoPaterno }}</td>  
-                    <td class="column3">{{ estudiante.apellidoMaterno }}</td>  
-                    <td class="column3">
-                        <a href="/detalleEstudiante/{{ estudiante.id }}"><img src="https://img.icons8.com/android/24/000000/pencil.png" >Editar</img></a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-
-
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 documento" id="creador">
-            <div class="card-body">
-                <a href="/registrarEstudiante/"><i class="fa fa-plus"></i></a>
-                <p class="card-title text-center">Nuevo</p>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock contenido %}
-
-{% extends "base.html" %}
-
-{% block titulo %}Facilitadores
-
-<a class="btn btn-info" href="/facilitadores/registrarFacilitador/" role="button">
+<a class="btn btn-info" href="/registrarEstudiante/" role="button">
     Nuevo
 </a>
 {% endblock %}
@@ -61,6 +11,21 @@
 {% endblock scripts %}
 
 {% block contenido %}
+
+{% if messages %}
+  <div class="messages container-fluid">
+    {% for message in messages %}
+    <div class="success alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        
+    {% endfor %}
+  </div>
+{% endif %}
+
 
 <div class="container-fluid">
         <table id="datos" class="table table-striped">
@@ -78,18 +43,17 @@
                 <tr> 
                     <td class="column1">{{ estudiante.matricula }}</td>  
                     <td class="column2">{{ estudiante.nombre }}</td>  
-                    <td class="column3">{{ estudiante.apellidoPaterno }}</td>  
-                    <td class="column3">{{ estudiante.apellidoMaterno }}</td>  
+                    <td class="column3">{{ estudiante.apellido_paterno }}</td>  
+                    <td class="column3">{{ estudiante.apellido_materno }}</td>  
                     <td class="column3">
-                        <a href="/detalleEstudiante/{{ estudiante.id }}"><img src="https://img.icons8.com/android/24/000000/pencil.png" >Editar</img></a>
+                        <button class="btn btn-link"><a href="/detalleEstudiante/{{ estudiante.id }}"><i class="fa fa-eye"> Ver</i></a></button>
                     </td>
-                </tr>
-                <tr class="noSearch hide">
-                    <td colspan="100"></td>
+                </tr> 
+                <tr class='noSearch hide'>
+                    <td colspan="10"></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    
 </div>
 {% endblock contenido %}

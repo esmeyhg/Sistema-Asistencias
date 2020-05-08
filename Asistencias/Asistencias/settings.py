@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Usuarios',
     'crispy_forms',
-    'bootstrap4',
     'bootstrap_datepicker_plus'
 ]
 
@@ -127,8 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 STATIC_URL = '/static/'
-CRISPY_TEMPLATE_PACL = 'bootstrap4'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'), ]
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 LOGIN_URL = '/login'
-

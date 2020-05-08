@@ -22,7 +22,7 @@
 	<script src="/static/bootstrap/vendor/jquery/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-
+	<script src="/static/js/busqueda.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
 	<link rel="stylesheet" href="/static/css/bootstrap-multiselect.css">
@@ -34,7 +34,7 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #0E47A1;" id="mainNav">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #053357;" id="mainNav">
 
 		<a class="navbar-brand" href="/login/">
 			<!-- AQUÍ VA EL HOME DE LA APLICACIÓN, SI NO ESTÁ LOGEADO, LO REDIRIGE A LA PANTALLA DE LOGIN-->
@@ -94,15 +94,13 @@
 			<ul class="navbar-nav ml-auto">
 				{% if user.is_authenticated %}
 				<!--Buscar-->
-					{% if request.get_full_path == "/estudiantes/" or request.get_full_path == "/proveedores/" or request.get_full_path == "/facilitadores/" or request.get_full_path == "/asistencias/" or request.get_full_path == "/platicas/" %}
 						<li class="nav-item">
-							<form id="buscar" action="/search/" method="POST" class="form-inline my-2 my-lg-0 mr-lg-2">{% csrf_token %}
+							<form class="form-inline my-2 my-lg-0 mr-lg-2">
 								<div class="input-group">
-									<input class="form-control" type="text" id="busqueda" placeholder="Buscar">
+									<input id="searchTerm" type="text" onkeyup="doSearch()" placeholder="Buscar">
 								</div>
 							</form>
 						</li>
-					{% endif %}
 
 				{% endif %}
 

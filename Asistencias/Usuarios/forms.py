@@ -19,6 +19,11 @@ class ModificarUsuarioForm(UserChangeForm):
         fields = ["username", "first_name", "last_name"]
 
 class EstudianteForm(ModelForm):
+    matricula = forms.CharField(
+        max_length=9,
+        required=True,
+        help_text='ejemplo: S12345678',
+    )
 
     class Meta:
         model = Estudiante

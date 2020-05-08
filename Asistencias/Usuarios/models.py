@@ -10,9 +10,9 @@ class Usuario(AbstractUser):
         return self.username
 
 class Estudiante(models.Model):
-    matricula = models.CharField(max_length=10)
-    nombre = models.CharField(max_length=100)
-    apellido_paterno = models.CharField(max_length=100)
+    matricula = models.CharField(max_length=9, blank=False, unique=True)
+    nombre = models.CharField(max_length=100, blank=False)
+    apellido_paterno = models.CharField(max_length=100, blank=False)
     apellido_materno = models.CharField(max_length=100)
     estado = models.BooleanField(default=True)
 
@@ -21,10 +21,10 @@ class Estudiante(models.Model):
         verbose_name_plural = 'Estudiantes'
 
 class Facilitador(models.Model):
-    nombre = models.CharField(max_length=100)
-    apellido_paterno = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, blank=False)
+    apellido_paterno = models.CharField(max_length=100, blank=False)
     apellido_materno = models.CharField(max_length=100)
-    nivel_academico = models.CharField(max_length=100)
+    nivel_academico = models.CharField(max_length=100, blank=False)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -35,7 +35,7 @@ class Facilitador(models.Model):
         return '%s %s %s' % (self.nombre, self.apellido_paterno, self.apellido_materno) 
 
 class Proveedor(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, blank=False)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -46,7 +46,7 @@ class Proveedor(models.Model):
         return self.nombre
 
 class Platica(models.Model):
-    nombre = models.CharField(max_length=250)
+    nombre = models.CharField(max_length=250, blank=False)
     fecha = models.DateField()
     hora = models.TimeField()
     lugar = models.CharField(max_length=300)

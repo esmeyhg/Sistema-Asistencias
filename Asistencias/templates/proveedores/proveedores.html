@@ -2,7 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block titulo %}Proveedores
-<a data-toggle="modal" data-target="#registrarModal" href="/registrarProveedor/"><i class="fa fa-plus-square" style="color: #053357;"></i></a>
+<a class="btn btn-info" href="/registrarProveedor/" role="button">
+    Nuevo
+</a>
 {% endblock %}
 {% block scripts %}
     <script src="/static/js/busqueda.js"></script>
@@ -12,9 +14,22 @@
 {% endblock scripts %}
 
 {% block contenido %}
+
+{% if messages %}
+  <div class="messages container-fluid">
+    {% for message in messages %}
+    <div class="success alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 <div class="container">
-    <div >
-      <div class="card">
+    <div class="card">
         <div class="card-body">
             <table id="datos" class="table table-striped">
                 <thead>
@@ -29,29 +44,21 @@
                         <td class="column2">{{ proveedor.nombre }}</td>
                         <td class="column3">
                             <div class="input-group-prepend">
-                                <a href="/updateProveedor/{{ proveedor.id }}"><i class="fa fa-pencil" aria-hidden="true" style="color: black; margin-left: 0.5em;"></i></a>
-                                <a data-toggle="modal" data-target="#eliminarDocumentoModal"><i class="fa fa-trash" aria-hidden="true" style="color: black; margin-left: 0.5em;"></i></a>
+                                <button class="btn btn-link"><a href="/updateProveedor/{{ proveedor.id }}"><i class="fa fa-pencil"></i></a></button>
+                                <button class="btn btn-link"><a href="/deleteProveedor/{{ proveedor.id }}"  onClick="return confirm('¿Seguro que desea borrar a {{proveedor.nombre}}?');"><i class="fa fa-trash"></i></a></button>
                             </div>
-
                         </td>
-
                     </tr>
                     <tr class="noSearch hide">
                         <td colspan="100"></td>
                     </tr>
-                    <div class="modal fade" id="eliminarDocumentoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-                                  
+
+
+
 {% endblock contenido %}
