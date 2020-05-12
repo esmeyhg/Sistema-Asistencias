@@ -21,10 +21,20 @@ urlpatterns = [
     path('facilitadores/', login_required(mostrar_facilitadores)),
     path('registrarFacilitador/', login_required(crear_facilitador)),
     path('deleteFacilitador/<int:idFacilitador>', login_required(borrar_facilitador)),
-    path('detalleFacilitador/<int:idFacilitador>', login_required(editar_facilitador)),
     path('updateFacilitador/<int:idFacilitador>', login_required(update_facilitador)),
     path('proveedores/', login_required(mostrar_proveedores)),
     path('registrarProveedor/', login_required(crear_proveedor)),
     path('deleteProveedor/<int:idProveedor>', login_required(borrar_proveedor)),
     path('updateProveedor/<int:idProveedor>', login_required(update_proveedor)),
+    path('platicas/', login_required(mostrar_platicas)),
+    path('registrarPlatica/', login_required(crear_platica)),
+    path('deletePlatica/<int:idPlatica>', login_required(borrar_platica)),
+    path('updatePlatica/<int:idPlatica>', login_required(update_platica)),
+    path('asistencias/', login_required(mostrar_asistencias)),
+    path('registrarAsistencias/', login_required(crear_asistencias)),
+    path('deleteAsistencias/<int:idAsistencia>', login_required(borrar_asistencias)),
+    path('detalleAsistencias/<int:idAsistencia>', login_required(editar_asistencias)),
+    path('updateAsistencias/<int:idAsistencia>', login_required(update_asistencias)),
+    
+
 ]

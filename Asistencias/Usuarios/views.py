@@ -173,16 +173,11 @@ def update_proveedor(request, idProveedor):
         return redirect("/proveedores")
     return render(request, 'proveedores/editar_proveedor.html', {'form':proveedorForm, 'proveedor':proveedor})
 
-
-
-
 #METODOS DE LOS FACILITADORES, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
 def mostrar_facilitadores(request):
     facilitadores = Facilitador.objects.filter(estado = True)
-
     info = {}
     info["facilitadores"] = facilitadores
-
     context = {"info": info}
     return render(request, "facilitadores/facilitadores.html", context)
 
@@ -190,7 +185,8 @@ def borrar_facilitador(request, idFacilitador):
     facilitador = Facilitador.objects.get(id=idFacilitador)
     facilitador.estado = False
     facilitador.save()
-    return redirect('/facilitadores', {'mensaje':'success'})
+    messages.success(request, 'Ponente dado de baja exitosamente.')
+    return redirect('/facilitadores')
 
 @transaction.atomic
 def crear_facilitador(request):
@@ -201,25 +197,111 @@ def crear_facilitador(request):
         facilitadorForm = FacilitadorForm(request.POST, request.FILES)
         if facilitadorForm.is_valid():
             facilitadorForm.save()
-            return render(request, 'facilitadores/registro_facilitador.html', {'form': facilitadorForm, 'mensaje':'success'})
+            messages.success(request, 'Ponente registrado exitosamente.')
+            return redirect('/facilitadores')
         else:
             facilitadorForm = FacilitadorForm(request.POST)
-            return render(request, 'facilitadores/registro_facilitador.html', {'form': facilitadorForm, 'mensaje':'error'})
+            messages.error(request, 'No se pudo registrar el ponente.')
+            return render(request, 'facilitadores/registro_facilitador.html', {'form': facilitadorForm})
 
-def editar_facilitador(request, idFacilitador):
-    facilitador = Facilitador.objects.get(id=idFacilitador)
-    return render (request, 'facilitadores/principal_facilitador.html', {'facilitador':facilitador})
 
 def update_facilitador(request, idFacilitador):
     facilitador = get_object_or_404(Facilitador, id=idFacilitador)
     facilitadorForm = FacilitadorForm(request.POST or None, instance=facilitador)
     if facilitadorForm.is_valid():
         facilitadorForm.save()
-        return redirect('/facilitadores',{'mensaje':'success'})
-    return render(request, 'facilitadores/editar_facilitador.html', {'form':facilitadorForm})
+        messages.success(request, 'Ponente actualizado exitosamente.')
+        return redirect("/facilitadores")
+    return render(request, 'facilitadores/editar_facilitador.html', {'form':facilitadorForm, 'facilitador':facilitador})
 
 
+#METODOS DE LAS PLÁTICAS, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
+def mostrar_platicas(request):
+    platicas = Platica.objects.filter(estado = True)
+    info = {}
+    info["platicas"] = platicas
+    context = {"info": info}
+    return render(request, "platicas/platicas.html", context)
 
+def borrar_platica(request, idPlatica):
+    platica = Platica.objects.get(id=idPlatica)
+    platica.estado = False
+    platica.save()
+    messages.success(request, 'Plática dada de baja exitosamente.')
+    return redirect('/platicas')
+
+@transaction.atomic
+def crear_platica(request):
+    if request.method == 'GET':
+        platicaForm = PlaticaForm(request.POST or None)
+        return render(request, 'platicas/registrar_platica.html', {'form': platicaForm})
+    elif request.method == 'POST':
+        platicaForm = PlaticaForm(request.POST, request.FILES)
+        if platicaForm.is_valid():
+            platicaForm.save()
+            messages.success(request, 'Plática registrada exitosamente.')
+            return redirect('/platicas')
+        else:
+            platicaForm = PlaticaForm(request.POST)
+            messages.error(request, 'No se pudo registrar la plática.')
+            return render(request, 'platicas/registrar_platica.html', {'form': platicaForm})
+
+
+def update_platica(request, idPlatica):
+    platica = get_object_or_404(Platica, id=idPlatica)
+    platicaForm = PlaticaForm(request.POST or None, instance=platica)
+    if platicaForm.is_valid():
+        platicaForm.save()
+        messages.success(request, 'Plática actualizada exitosamente.')
+        return redirect("/platicas")
+    return render(request, 'platicas/editar_platica.html', {'form':platicaForm, 'platica':platica})
+
+
+#METODOS DE LAS ASISTENCIAS, MOSTRAR, REGISTRAR, ELIMINAR Y ACTUALIZAR INFORMACION
+
+def mostrar_asistencias(request):
+    asistencias = Asistencia.objects.all()
+    info = {}
+    info["estudiantes"] = asistencias
+    context = {"info": info}
+    return render(request, "asistencias/asistencias.html", context)
+
+@transaction.atomic
+def crear_asistencias(request):
+    if request.method == 'GET':
+        asistenciasForm = AsistenciaForm(request.POST or None)
+        return render(request, 'asistencias/crear_asistencias.html', {'form': asistenciasForm})
+    elif request.method == 'POST':
+        asistenciasForm = AsistenciaForm(request.POST, request.FILES)
+        if asistenciasForm.is_valid():
+            asistenciasForm.save()
+            messages.success(request, 'Asistencias registradas exitosamente.')
+            return redirect('/asistencias')
+        else:
+            asistenciasForm = AsistenciaForm(request.POST)
+            messages.error(request, 'No se pudieron registrar las asistencias.')
+            return render(request, 'asistencias/crear_asistencias.html', {'form': asistenciasForm})
+
+def borrar_asistencias (request, idAsistencia):
+    asistencias = Asistencia.objects.get(id=idAsistencia)
+    asistencias.estado = False
+    asistencias.save()
+    messages.success(request, 'Asistencias eliminadas exitosamente.')
+    return redirect('/asistencias')
+
+
+def editar_asistencias(request, idAsistencia):
+    asistencias = Asistencia.objects.get(id=idAsistencia)
+    return render (request, 'asistencias/principal_asistencias.html', {'asistencias':asistencias})
+
+def update_asistencias(request, idAsistencia):
+    asistencias = get_object_or_404(Asistencia, id=idAsistencia)
+    asistenciasForm = AsistenciaForm(request.POST or None, instance=asistencias)
+    if asistenciasForm.is_valid():
+        asistenciasForm.save()
+        messages.success(request, 'Asistencias actualizadas exitosamente.')
+        return redirect("/asistencias")
+    return render(request, 'asistencias/editar_asistencias.html', {'form':asistenciasForm, 'asistencias':asistencias})
 
 def salir(request):
     logout(request)

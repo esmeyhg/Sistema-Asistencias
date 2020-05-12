@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 {% endblock scripts %}
 
-{% block titulo %}Actualizar
+{% block titulo %}Actualizar {{ platica.nombre }}
 {% endblock %}
 
 {% block contenido %}
@@ -14,8 +14,8 @@
 <div class="container">
     <div class="card card-register mx-auto mt-18">
         <div class="card-body">
-            <form action="" id="estudianteForm" method="post" enctype="multipart/form-data">
-                {% csrf_token %} {{ form|crispy }}
+            <form action="" id="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form|crispy }} {{ form.media }}
                 <button type="submit" class="btn btn-primary btn-block" value="Submit">Guardar cambios</button>
             </form>
         </div>

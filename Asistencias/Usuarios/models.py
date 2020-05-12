@@ -20,11 +20,22 @@ class Estudiante(models.Model):
         verbose_name = 'Estudiante'
         verbose_name_plural = 'Estudiantes'
 
+class Nivel(models.Model):
+    abreviatura = models.CharField(max_length=15, blank=False, unique=True)
+    nivel_academico = models.CharField(max_length=15, blank=False, unique=True)
+
+    class Meta:
+        verbose_name = 'Nivel'
+        verbose_name_plural = 'Niveles'
+
+    def __str__(self):
+        return '%s' % (self.nivel_academico) 
+
 class Facilitador(models.Model):
     nombre = models.CharField(max_length=100, blank=False)
     apellido_paterno = models.CharField(max_length=100, blank=False)
     apellido_materno = models.CharField(max_length=100)
-    nivel_academico = models.CharField(max_length=100, blank=False)
+    nivel_academico = models.ForeignKey(Nivel, on_delete = models.CASCADE, default=None)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -32,7 +43,7 @@ class Facilitador(models.Model):
         verbose_name_plural = 'Facilitadores'
 
     def __str__(self):
-        return '%s %s %s' % (self.nombre, self.apellido_paterno, self.apellido_materno) 
+        return '%s %s %s %s' % (self.nivel_academico.abreviatura, self.nombre, self.apellido_paterno, self.apellido_materno) 
 
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=100, blank=False)

@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Usuarios',
+    'bootstrap_datepicker_plus',
     'crispy_forms',
-    'bootstrap_datepicker_plus'
 ]
 
 AUTH_USER_MODEL = 'Usuarios.Usuario'
@@ -73,7 +73,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Asistencias.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

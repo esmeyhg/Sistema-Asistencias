@@ -1,24 +1,35 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load bootstrap4 %}
 {% block scripts %}
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 {% endblock scripts %}
 
-{% block titulo %}Registrar Asistencia{% endblock %}
+{% block titulo %}Registrar asistencias{% endblock %}
 
 {% block contenido %}
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+        <div class="error alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <div class="container">
     <div class="card card-register mx-auto mt-18">
-        <div class="card-header">Registrar asistencia</div>
+        <div class="card-header">Registrar asistencias</div>
         <div class="card-body">
-            <form action="" id="platicaForm" method="post" enctype="multipart/form-data">
-                {% csrf_token %} {{ form|crispy }} {{ form.media }}
-                <button type="submit" class="btn btn-primary">Registrar</button>
-                <button type="reset" class="btn btn-danger">Cancelar</button>
-            </form>
+            <form action="" method="post" id="form" enctype="multipart/form-data">
+                {% csrf_token %} {{ form|crispy }}
+                <button type="submit" class="btn btn-primary" value="Submit">Registrar</button>
+                <button type="reset" class="btn btn-danger" value="Reset">Cancelar</button>
+              </form>
+
         </div>
     </div>
 </div>

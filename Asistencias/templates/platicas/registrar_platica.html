@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load bootstrap4 %}
 {% block scripts %}
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -14,8 +13,9 @@
     <div class="card card-register mx-auto mt-18">
         <div class="card-header">Registrar plática</div>
         <div class="card-body">
-            <form action="" id="platicaForm" method="post" enctype="multipart/form-data">
-                {% csrf_token %} {{ form|crispy }} {{ form.media }}
+            <form action="" id="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form|crispy }} 
+                {{ form.media }}
                 <button type="submit" class="btn btn-primary">Registrar</button>
                 <button type="reset" class="btn btn-danger">Cancelar</button>
             </form>

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}Pláticas
+<a class="btn btn-info" href="/registrarPlatica/" role="button">
+    Nuevo
+</a>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/js/busqueda.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+
+{% if messages %}
+  <div class="messages container-fluid">
+    {% for message in messages %}
+    <div class="success alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <table id="datos" class="table table-striped">
+                <thead>
+                    <tr class="table100-head">
+                        <th class="column3">Nombre</th>
+                        <th class="column3">Fecha</th>
+                        <th class="column3">Hora</th>
+                        <th class="column3">Lugar</th>
+                        <th class="column3">Proveedor</th>
+                        <th class="column3">Ponente</th>
+                        <th class="column3">Acciones</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for platica in info.platicas %}
+                    <tr> 
+                        <td class="column2">{{ platica.nombre }}</td>
+                        <td class="column2">{{ platica.fecha }}</td>
+                        <td class="column2">{{ platica.hora }}</td>
+                        <td class="column2">{{ platica.lugar }}</td>
+                        <td class="column2">{{ platica.idProveedor }}</td>
+                        <td class="column2">{{ platica.idFacilitador }}</td>
+                        <td class="column3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-link"><a href="/updatePlatica/{{ platica.id }}"><i class="fa fa-pencil"></i></a></button>
+                                <button class="btn btn-link"><a href="/deletePlatica/{{ platica.id }}"  onClick="return confirm('¿Seguro que desea borrar la plática: {{platica.nombre}}?');"><i class="fa fa-trash"></i></a></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="noSearch hide">
+                        <td colspan="100"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

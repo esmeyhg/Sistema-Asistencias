@@ -2,7 +2,7 @@
 
 {% block titulo %}Lista de Asistencias
 
-<a class="btn btn-info" href="/registrarAsistencia/" role="button">
+<a class="btn btn-info" href="/registrarAsistencias/" role="button">
     Nueva
 </a>
 {% endblock %}
@@ -38,7 +38,7 @@
                         <td class="column3">No</td>
                     {% endif %}
                     <td class="column3">
-                        <a href="/detalleAsistencia/{{ asistencia.id }}"><i class="fa fa-eye" aria-hidden="true" style="color: black">Ver</i></a>
+                        <a href="/detalleAsistencias/{{ asistencia.id }}"><i class="fa fa-eye" aria-hidden="true" style="color: black">Ver</i></a>
                     </td>
                 </tr>
                 <tr class="noSearch hide">
