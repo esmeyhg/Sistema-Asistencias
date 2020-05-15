@@ -59,14 +59,20 @@ class PlaticaForm(ModelForm):
             'fecha': DatePickerInput(format='%Y-%m-%d'),
         }
 
+
+
 class AsistenciaForm(ModelForm):
     class Meta:
         model = Asistencia
-        fields = ['idEstudiante', 'idPlatica', 'asistencia']
+        fields = ['idPlatica','idEstudiante', 'asistencia']
         labels = {
-            'idEstudiante': 'Estudiante',
-            'idPlatica': 'Plática',
+            'idPlatica': 'Pláticas',
+            'idEstudiante': 'Estudiantes',
             'asistencia': 'Asistencia',
+        }
+        estudiante = forms.ModelMultipleChoiceField(queryset=Estudiante.objects.filter(estado = True))
+        widgets = {
+            'idEstudiante': forms.CheckboxSelectMultiple(),
         }
 
 

@@ -20,6 +20,9 @@ class Estudiante(models.Model):
         verbose_name = 'Estudiante'
         verbose_name_plural = 'Estudiantes'
 
+    def __str__(self):
+        return '%s %s %s %s' % (self.matricula, self.nombre, self.apellido_paterno, self.apellido_materno) 
+
 class Nivel(models.Model):
     abreviatura = models.CharField(max_length=15, blank=False, unique=True)
     nivel_academico = models.CharField(max_length=15, blank=False, unique=True)

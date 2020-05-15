@@ -33,8 +33,9 @@ urlpatterns = [
     path('asistencias/', login_required(mostrar_asistencias)),
     path('registrarAsistencias/', login_required(crear_asistencias)),
     path('deleteAsistencias/<int:idAsistencia>', login_required(borrar_asistencias)),
-    path('detalleAsistencias/<int:idAsistencia>', login_required(editar_asistencias)),
     path('updateAsistencias/<int:idAsistencia>', login_required(update_asistencias)),
+    #esta es una prueba
+    #path('registrarAsistencias/<int:idPlatica>', login_required(registrar_asistencias_platica)),
     
 
 ]

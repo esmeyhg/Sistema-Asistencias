@@ -1,36 +1,57 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load crispy_forms_field %}
 {% block scripts %}
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 {% endblock scripts %}
 
-{% block titulo %}Registrar asistencias{% endblock %}
+{% block titulo %}Registrar asistencias
+{% endblock %}
 
 {% block contenido %}
 
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-        <div class="error alert alert-danger" role="alert">
-            {{ message }}
-        </div>
-    {% endfor %}
-  </ul>
-{% endif %}
-
 <div class="container">
     <div class="card card-register mx-auto mt-18">
-        <div class="card-header">Registrar asistencias</div>
         <div class="card-body">
-            <form action="" method="post" id="form" enctype="multipart/form-data">
-                {% csrf_token %} {{ form|crispy }}
-                <button type="submit" class="btn btn-primary" value="Submit">Registrar</button>
-                <button type="reset" class="btn btn-danger" value="Reset">Cancelar</button>
-              </form>
+            <form action="" id="form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  
+                    {{ form.idPlatica|as_crispy_field }}
+                  
+                </div>
+                <table id="datos" class="table table-striped">
+                    <thead>
+                        <tr class="table100-head">
+                            <th class="column1">Estudiantes</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asiste in form.idEstudiante %}
+                            <tr>
+                                <td>
+                                    {{ asiste }}
+                                </td>
+                            </tr>
+                            <tr class="noSearch hide">
+                                <td colspan="100"></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="form-check">
+                  {{ form.asistencia }}
+                  <label class="form-check-label" for="defaultCheck1">
+                    Marcar la casilla para indicar que asistieron a la plática
+                  </label>
+                </div>
 
+                <button type="submit" class="btn btn-primary" value="Submit">Registrar</button>
+                <button type="reset" class="btn btn-danger" value="Cancel">Cancelar</button>
+            </form>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock contenido %}
