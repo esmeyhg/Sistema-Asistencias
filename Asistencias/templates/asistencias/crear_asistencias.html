@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="/static/js/checkall.js"></script>
 {% endblock scripts %}
 
 {% block titulo %}Registrar asistencias
@@ -26,14 +27,19 @@
                     <thead>
                         <tr class="table100-head">
                             <th class="column1">Estudiantes</th>  
+                            <th class="column1">
+                                Seleccionar todos
+                                <input type='checkbox' name='showhide' onchange="checkAll(this)">
+                            </th> 
                         </tr>
                     </thead>
                     <tbody>
                         {% for asiste in form.idEstudiante %}
-                            <tr>
+                            <tr id="tr_1">
                                 <td>
                                     {{ asiste }}
                                 </td>
+                                <td></td>
                             </tr>
                             <tr class="noSearch hide">
                                 <td colspan="100"></td>
