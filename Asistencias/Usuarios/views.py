@@ -28,19 +28,17 @@ def ingresar(request):
             return render(request, "login.html")
 
     elif request.method == 'POST':
+
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
 
-        try:
-            usuario = Usuario.objects.get(username=username)
-        except Usuario.DoesNotExist:
-            usuario = None
-            if usuario is not None:
-                user = authenticate(username=usuario.username, password=password)
-                login(request, user)
-                return redirect('/estudiantes/')
-            else:
-                return render(request, 'login.html', {'mensaje': 'error'})
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/estudiantes/')
+        else:
+            return render(request, 'login.html', {'mensaje': 'error'})
 
 
 def registrar(request):
@@ -239,7 +237,8 @@ def crear_platica(request):
         if platicaForm.is_valid():
             platicaForm.save()
             messages.success(request, 'Plática registrada exitosamente.')
-            return redirect('/platicas')
+            asistenciasForm = AsistenciaForm(request.POST or None)
+            return redirect('/registrarAsistencias', {'form': asistenciasForm})
         else:
             platicaForm = PlaticaForm(request.POST)
             messages.error(request, 'No se pudo registrar la plática.')
@@ -259,11 +258,19 @@ def update_platica(request, idPlatica):
 #METODOS DE LAS ASISTENCIAS, MOSTRAR, REGISTRAR, ELIMINAR Y ACTUALIZAR INFORMACION
 
 def mostrar_asistencias(request):
-    asistencias = Asistencia.objects.all()
+    asistencias = Asistencia.objects.all().order_by('idPlatica')
     info = {}
     info["asistencias"] = asistencias
     context = {"info": info}
     return render(request, "asistencias/asistencias.html", context)
+
+def mostrar_asistencias_platica(request, idPlatica):
+    asistencias = Asistencia.objects.filter(idPlatica=idPlatica, asistencia=True)
+    info = {}
+    info["asistencias"] = asistencias
+    context = {"info": info}
+    return render(request, "asistencias/asistencias.html", context)
+
 
 @transaction.atomic
 def crear_asistencias(request):
@@ -289,31 +296,13 @@ def borrar_asistencias (request, idAsistencia):
     return redirect('/asistencias')
 
 def update_asistencias(request, idAsistencia):
-    asistencias = get_object_or_404(Asistencia, id=idAsistencia)
+    asistencias = Asistencia.objects.get(id=idAsistencia)
     asistenciasForm = AsistenciaForm(request.POST or None, instance=asistencias)
     if asistenciasForm.is_valid():
         asistenciasForm.save()
         messages.success(request, 'Asistencias actualizadas exitosamente.')
         return redirect("/asistencias")
     return render(request, 'asistencias/editar_asistencias.html', {'form':asistenciasForm, 'asistencias':asistencias})
-
-""" def registrar_asistencias_platica(request, idPlatica):
-    platica = get_object_or_404(Platica, id=idPlatica)
-    if request.method == 'GET':
-        asistenciasForm = AsistenciaForm(request.POST or None)
-        return render(request, 'asistencias/crear_asistencias.html', {'form': asistenciasForm, 'platicas': platica})
-    elif request.method == 'POST':
-        asistenciasForm = AsistenciaForm(request.POST, request.FILES)
-        if asistenciasForm.is_valid():
-            asiste = asistenciasForm.save(commit=False)
-            asiste.idPlatica = platica
-            asiste.save()
-            messages.success(request, 'Asistencias registradas exitosamente.')
-            return redirect('/asistencias')
-        else:
-            asistenciasForm = AsistenciaForm(request.POST)
-            messages.error(request, 'No se pudieron registrar las asistencias.')
-            return render(request, 'asistencias/crear_asistencias.html', {'form': asistenciasForm, 'platicas':platica}) """
 
 
 def salir(request):

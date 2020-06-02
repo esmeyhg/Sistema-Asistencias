@@ -17,6 +17,7 @@ class Estudiante(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
+        ordering=['matricula']
         verbose_name = 'Estudiante'
         verbose_name_plural = 'Estudiantes'
 
@@ -69,15 +70,12 @@ class Platica(models.Model):
     idFacilitador = models.ForeignKey(Facilitador, on_delete = models.CASCADE, default=None)
 
     class Meta:
+        ordering=['-fecha']
         verbose_name = 'Platica'
         verbose_name_plural = 'Platicas'
 
     def __str__(self):
-        return self.nombre
-
-    @property
-    def sorted_post_set(self):
-        return self.sorted_post_set.order_by('fecha')
+        return '%s %s' % (self.fecha,self.nombre) 
 
 
 class Asistencia(models.Model):

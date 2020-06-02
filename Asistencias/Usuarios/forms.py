@@ -74,5 +74,3 @@ class AsistenciaForm(ModelForm):
         widgets = {
             'idEstudiante': forms.CheckboxSelectMultiple(),
         }
-
-

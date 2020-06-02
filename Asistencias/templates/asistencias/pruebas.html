@@ -34,6 +34,7 @@
                     <th class="column2">Nombre</th>  
                     <th class="column3">Plática</th>  
                     <th class="column3">Fecha</th> 
+                    <th class="column3">Asistencia</th>  
                     <th class="column3">Acciones</th> 
                 </tr>
             </thead>
@@ -45,6 +46,11 @@
                         <td class="column2">{{ asistente.nombre }} {{ asistente.apellido_paterno }} {{ asistente.apellido_materno }}</td>  
                         <td class="column3">{{ asistencia.idPlatica.nombre }}</td>  
                         <td class="column3">{{ asistencia.idPlatica.fecha }}</td> 
+                        {% if asistencia.asistencia %}
+                            <td class="column3">Sí</td>
+                        {% else %}
+                            <td class="column3">No</td>
+                        {% endif %}
                         <td><button class="btn btn-link"><a href="/updateAsistencias/{{ asistencia.id }}"><i class="fa fa-pencil"></i></a></button></td>
                     </tr>
                     <tr class="noSearch hide">

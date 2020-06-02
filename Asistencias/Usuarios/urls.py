@@ -30,12 +30,9 @@ urlpatterns = [
     path('registrarPlatica/', login_required(crear_platica)),
     path('deletePlatica/<int:idPlatica>', login_required(borrar_platica)),
     path('updatePlatica/<int:idPlatica>', login_required(update_platica)),
+    path('asistencias/<int:idPlatica>', login_required(mostrar_asistencias_platica)),
     path('asistencias/', login_required(mostrar_asistencias)),
     path('registrarAsistencias/', login_required(crear_asistencias)),
     path('deleteAsistencias/<int:idAsistencia>', login_required(borrar_asistencias)),
     path('updateAsistencias/<int:idAsistencia>', login_required(update_asistencias)),
-    #esta es una prueba
-    #path('registrarAsistencias/<int:idPlatica>', login_required(registrar_asistencias_platica)),
-    
-
 ]
