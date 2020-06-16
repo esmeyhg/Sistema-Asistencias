@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'Usuarios',
     'bootstrap_datepicker_plus',
     'crispy_forms',
+    'django_tables2',
+
 ]
 
 AUTH_USER_MODEL = 'Usuarios.Usuario'

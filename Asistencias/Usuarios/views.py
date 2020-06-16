@@ -2,6 +2,7 @@ import json
 import os
 from django.shortcuts import render, redirect, HttpResponse, Http404, get_object_or_404
 from Usuarios.forms import *
+from Usuarios.tables import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import transaction
@@ -215,10 +216,12 @@ def update_facilitador(request, idFacilitador):
 #METODOS DE LAS PLÁTICAS, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
 def mostrar_platicas(request):
     platicas = Platica.objects.filter(estado = True)
+    table = PlaticaTable(platicas)
+    table.paginate(page=request.GET.get("page", 1), per_page=25)
     info = {}
     info["platicas"] = platicas
-    context = {"info": info}
-    return render(request, "platicas/platicas.html", context)
+    context = {"info": info, "table":table}
+    return render(request, "platicas/platicas2.html", context)
 
 def borrar_platica(request, idPlatica):
     platica = Platica.objects.get(id=idPlatica)

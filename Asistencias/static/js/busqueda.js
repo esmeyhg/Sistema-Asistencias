@@ -89,7 +89,3 @@ function doSearch()
     }
 
 }
-
-$(document).ready(function() {
-    $('#datos').DataTable();
-});
