@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for asistencia in info.asistencias %}
+                {% for asistencia in asistencias %}
                     {% for asistente in asistencia.idEstudiante.all %}
                     <tr>
                         <td class="column1">{{ asistente.matricula}}</td>  
@@ -54,5 +54,26 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if asistencias.has_other_pages %}
+            <ul class="pagination">
+                {% if asistencias.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ asistencias.previous_page_number }}">Anterior</a></li>
+                {% else %}
+                <li class="disabled"><span></span></li>
+                {% endif %}
+                {% for i in asistencias.paginator.page_range %}
+                {% if asistencias.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if asistencias.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ asistencias.next_page_number }}">Siguiente</a></li>
+                {% else %}
+                <li class=" disabled"><span></span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
 </div>
 {% endblock contenido %}

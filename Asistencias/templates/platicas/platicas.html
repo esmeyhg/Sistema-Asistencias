@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for platica in info.platicas %}
+                    {% for platica in platicas %}
                     <tr> 
                         <td class="column2">{{ platica.nombre }}</td>
                         <td class="column2">{{ platica.fecha }}</td>
@@ -68,18 +68,29 @@
                     </tr>
                     {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr class="table100-head">
-                        <th class="column3">Nombre</th>
-                        <th class="column3">Fecha</th>
-                        <th class="column3">Hora</th>
-                        <th class="column3">Lugar</th>
-                        <th class="column3">Proveedor</th>
-                        <th class="column3">Ponente</th>
-                        <th class="column3">Acciones</th> 
-                    </tr>
-                </tfoot>
             </table>
+            {% if platicas.has_other_pages %}
+            <ul class="pagination">
+                {% if platicas.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ platicas.previous_page_number }}">Anterior</a></li>
+                {% else %}
+                <li class="disabled"><span></span></li>
+                {% endif %}
+                {% for i in platicas.paginator.page_range %}
+                {% if platicas.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if platicas.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ platicas.next_page_number }}">Siguiente</a></li>
+                {% else %}
+                <li class=" disabled"><span></span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+
         </div>
     </div>
 </div>

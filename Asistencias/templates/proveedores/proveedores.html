@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for proveedor in info.proveedores %}
+                    {% for proveedor in proveedores %}
                     <tr> 
                         <td class="column2">{{ proveedor.nombre }}</td>
                         <td class="column3">
@@ -55,6 +55,27 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% if proveedores.has_other_pages %}
+            <ul class="pagination">
+                {% if proveedores.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ proveedores.previous_page_number }}">Anterior</a></li>
+                {% else %}
+                <li class="disabled"><span></span></li>
+                {% endif %}
+                {% for i in proveedores.paginator.page_range %}
+                {% if proveedores.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if proveedores.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ proveedores.next_page_number }}">Siguiente</a></li>
+                {% else %}
+                <li class=" disabled"><span></span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
         </div>
     </div>
 </div>

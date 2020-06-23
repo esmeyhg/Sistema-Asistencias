@@ -42,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for facilitador in info.facilitadores %}
+                    {% for facilitador in facilitadores %}
                     <tr> 
                         <td class="column2">{{ facilitador.nombre }}</td>
                         <td class="column2">{{ facilitador.apellido_paterno }}</td>
@@ -61,6 +61,27 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% if facilitadores.has_other_pages %}
+            <ul class="pagination">
+                {% if facilitadores.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ facilitadores.previous_page_number }}">Anterior</a></li>
+                {% else %}
+                <li class="disabled"><span></span></li>
+                {% endif %}
+                {% for i in facilitadores.paginator.page_range %}
+                {% if facilitadores.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if facilitadores.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ facilitadores.next_page_number }}">Siguiente</a></li>
+                {% else %}
+                <li class=" disabled"><span></span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
         </div>
     </div>
 </div>

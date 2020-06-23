@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for estudiante in info.estudiantes %}
+                {% for estudiante in estudiantes %}
                 <tr> 
                     <td class="column1">{{ estudiante.matricula }}</td>  
                     <td class="column2">{{ estudiante.nombre }}</td>  
@@ -55,5 +55,26 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if estudiantes.has_other_pages %}
+            <ul class="pagination">
+                {% if estudiantes.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ estudiantes.previous_page_number }}">Anterior</a></li>
+                {% else %}
+                <li class="disabled"><span></span></li>
+                {% endif %}
+                {% for i in estudiantes.paginator.page_range %}
+                {% if estudiantes.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if estudiantes.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ estudiantes.next_page_number }}">Siguiente</a></li>
+                {% else %}
+                <li class=" disabled"><span></span></li>
+                {% endif %}
+            </ul>
+        {% endif %}
 </div>
 {% endblock contenido %}

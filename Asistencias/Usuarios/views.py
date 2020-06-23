@@ -1,23 +1,17 @@
 import json
 import os
-from django.shortcuts import render, redirect, HttpResponse, Http404, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from Usuarios.forms import *
-from Usuarios.tables import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import transaction
 from django.db.models import Q
 from django import forms
-from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.core import serializers
 from .models import *
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
 from django.conf import settings
 import hashlib
-from django.views.generic import CreateView, UpdateView
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #METODOS DEL USUARIO, INGRESAR AL SISTEMA, REGISTRARSE, CONSULTAR SU INFO. Y ACTUALIZARLA.
 
@@ -86,13 +80,16 @@ def borrar_usuario(request):
 #METODOS DE LOS ESTUDIANTES, MOSTRAR, REGISTRAR, ELIMINAR Y ACTUALIZAR INFORMACION
 
 def mostrar_estudiantes(request):
-    estudiantes = Estudiante.objects.filter(estado = True)
-
-    info = {}
-    info["estudiantes"] = estudiantes
-
-    context = {"info": info}
-    return render(request, "estudiantes/estudiantes.html", context)
+    estudiantes_lista = Estudiante.objects.filter(estado = True)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(estudiantes_lista, 20)
+    try:
+        estudiantes = paginator.page(page)
+    except PageNotAnInteger:
+        estudiantes = paginator.page(1)
+    except EmptyPage:
+        estudiantes = paginator.page(paginator.num_pages)
+    return render(request, "estudiantes/estudiantes.html", {'estudiantes':estudiantes})
 
 @transaction.atomic
 def crear_estudiante(request):
@@ -133,11 +130,16 @@ def update(request, idEstudiante):
 
 #METODOS DE LOS PROVEEDORES, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
 def mostrar_proveedores(request):
-    proveedores = Proveedor.objects.filter(estado = True)
-    info = {}
-    info["proveedores"] = proveedores
-    context = {"info": info}
-    return render(request, "proveedores/proveedores.html", context)
+    proveedores_lista = Proveedor.objects.filter(estado = True)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(proveedores_lista, 10)
+    try:
+        proveedores = paginator.page(page)
+    except PageNotAnInteger:
+        proveedores = paginator.page(1)
+    except EmptyPage:
+        proveedores = paginator.page(paginator.num_pages)
+    return render(request, "proveedores/proveedores.html", {'proveedores':proveedores})
 
 @transaction.atomic
 def crear_proveedor(request):
@@ -173,11 +175,18 @@ def update_proveedor(request, idProveedor):
 
 #METODOS DE LOS FACILITADORES, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
 def mostrar_facilitadores(request):
-    facilitadores = Facilitador.objects.filter(estado = True)
-    info = {}
-    info["facilitadores"] = facilitadores
-    context = {"info": info}
-    return render(request, "facilitadores/facilitadores.html", context)
+    facilitadores_lista = Facilitador.objects.filter(estado = True)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(facilitadores_lista, 10)
+    try:
+        facilitadores = paginator.page(page)
+    except PageNotAnInteger:
+        facilitadores = paginator.page(1)
+    except EmptyPage:
+        facilitadores = paginator.page(paginator.num_pages)
+
+    return render(request, "facilitadores/facilitadores.html", {'facilitadores':facilitadores})
 
 def borrar_facilitador(request, idFacilitador):
     facilitador = Facilitador.objects.get(id=idFacilitador)
@@ -215,13 +224,16 @@ def update_facilitador(request, idFacilitador):
 
 #METODOS DE LAS PLÁTICAS, MOSTRAR, REGISTRAR, ELIMINAR, ACTUALIZAR
 def mostrar_platicas(request):
-    platicas = Platica.objects.filter(estado = True)
-    table = PlaticaTable(platicas)
-    table.paginate(page=request.GET.get("page", 1), per_page=25)
-    info = {}
-    info["platicas"] = platicas
-    context = {"info": info, "table":table}
-    return render(request, "platicas/platicas2.html", context)
+    platicas_lista = Platica.objects.filter(estado = True)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(platicas_lista, 10)
+    try:
+        platicas = paginator.page(page)
+    except PageNotAnInteger:
+        platicas = paginator.page(1)
+    except EmptyPage:
+        platicas = paginator.page(paginator.num_pages)
+    return render(request, "platicas/platicas.html", {'platicas':platicas})
 
 def borrar_platica(request, idPlatica):
     platica = Platica.objects.get(id=idPlatica)
@@ -261,18 +273,28 @@ def update_platica(request, idPlatica):
 #METODOS DE LAS ASISTENCIAS, MOSTRAR, REGISTRAR, ELIMINAR Y ACTUALIZAR INFORMACION
 
 def mostrar_asistencias(request):
-    asistencias = Asistencia.objects.all().order_by('idPlatica')
-    info = {}
-    info["asistencias"] = asistencias
-    context = {"info": info}
-    return render(request, "asistencias/asistencias.html", context)
+    asistencias_lista = Asistencia.objects.all().order_by('idPlatica')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(asistencias_lista, 3)
+    try:
+        asistencias = paginator.page(page)
+    except PageNotAnInteger:
+        asistencias = paginator.page(1)
+    except EmptyPage:
+        asistencias = paginator.page(paginator.num_pages)
+    return render(request, "asistencias/asistencias.html", {'asistencias':asistencias})
 
 def mostrar_asistencias_platica(request, idPlatica):
-    asistencias = Asistencia.objects.filter(idPlatica=idPlatica, asistencia=True)
-    info = {}
-    info["asistencias"] = asistencias
-    context = {"info": info}
-    return render(request, "asistencias/asistencias.html", context)
+    asistencias_lista = Asistencia.objects.filter(idPlatica=idPlatica, asistencia=True)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(asistencias_lista, 3)
+    try:
+        asistencias = paginator.page(page)
+    except PageNotAnInteger:
+        asistencias = paginator.page(1)
+    except EmptyPage:
+        asistencias = paginator.page(paginator.num_pages)
+    return render(request, "asistencias/asistencias.html", {'asistencias':asistencias})
 
 
 @transaction.atomic

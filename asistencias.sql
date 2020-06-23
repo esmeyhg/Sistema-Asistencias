@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 15-06-2020 a las 19:52:17
+-- Tiempo de generación: 22-06-2020 a las 19:35:05
 -- Versión del servidor: 5.7.30-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.24-0ubuntu0.18.04.6
 
@@ -211,6 +211,8 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('8tr7tjmljs2fqg8ppq4aevyp9nu2obpa', 'NTYwOGI0YWE4MmIzMTI2MjA5MzVlMmI1OTZlMzYzYTUzMjdkYWE1ZTp7Il9hdXRoX3VzZXJfaWQiOiI0IiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjZjliZmMyMDE4NWJlM2QzNWFjZDc5MWNkZjIyM2NlODNhZmFlODc3In0=', '2020-07-06 23:37:53.459561'),
+('t0o9ox92i9dxjvgagqq24ttc16tfqn4y', 'MGYwNjc2ODMwYTgzZDBhN2RlYzFhMjUwMTFiNzBjMWNkMzEwZDBiMDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlY2E3NTE1NGYwZmE5MTUxYWFlY2I0ZTE3ZjQ1MjFlMTZiNDJjZTRlIn0=', '2020-06-30 05:01:38.533049'),
 ('ycxzkuot31xhwsvdamr9r7ht3qua4uj8', 'ODc1ODhiMDc4YWY0M2I0YmZkZTBjNzIxNDA0YTgxMzQ2ZTk1NTNmMTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0ZWM4ZTUzNTYwZTZkNDU5N2NlMTg0YzY4MmJjY2FjN2M0OWIwYjVhIn0=', '2020-06-16 04:40:42.207964');
 
 -- --------------------------------------------------------
@@ -1047,7 +1049,7 @@ CREATE TABLE `Usuarios_usuario` (
 --
 
 INSERT INTO `Usuarios_usuario` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$180000$pMicZ6982kaI$Q5I/SvLNSzJTuh/zFDihefSbb3+fLQK7onxEQiab3xY=', '2020-06-02 04:40:42.173796', 0, 'Esmeyhg', 'Esmeralda', 'Hernández', '', 0, 1, '2020-06-02 04:40:35.088850');
+(4, 'pbkdf2_sha256$180000$bUk62YaHGTjm$YPukYh+XH8koM1swAZDvEhTta7q+yoi+qlp/wD+KOdE=', '2020-06-22 23:37:53.390307', 0, 'esme_hg', 'Esmeralda', 'Hernández', '', 0, 1, '2020-06-22 22:55:10.539633');
 
 -- --------------------------------------------------------
 
@@ -1274,7 +1276,7 @@ ALTER TABLE `Usuarios_proveedor`
 -- AUTO_INCREMENT de la tabla `Usuarios_usuario`
 --
 ALTER TABLE `Usuarios_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `Usuarios_usuario_groups`
 --
