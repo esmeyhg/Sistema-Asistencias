@@ -12,11 +12,21 @@ class CrearUsuarioForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = Usuario
         fields = ["username", "first_name", "last_name"]
+        labels = {
+            'username': 'Nombre usuario',
+            'first_name': 'Nombre(s)',
+            'last_name': 'Apellido(s)'
+        }
         
 class ModificarUsuarioForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = Usuario
         fields = ["username", "first_name", "last_name"]
+        labels = {
+            'username': 'Nombre usuario',
+            'first_name': 'Nombre(s)',
+            'last_name': 'Apellido(s)'
+        }
 
 class EstudianteForm(ModelForm):
     matricula = forms.CharField(

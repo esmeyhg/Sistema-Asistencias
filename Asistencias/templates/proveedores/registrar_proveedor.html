@@ -27,7 +27,9 @@
             <form action="" method="post" id="form" enctype="multipart/form-data">
                 {% csrf_token %} {{ form|crispy }}
                 <button type="submit" class="btn btn-primary" value="Submit">Registrar</button>
-                <button type="reset" class="btn btn-danger" value="Reset">Cancelar</button>
+                <a class="btn btn-danger" href="/proveedores/">
+                    Cancelar
+                </a>
             </form>
 
         </div>
