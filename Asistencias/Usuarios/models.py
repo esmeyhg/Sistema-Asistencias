@@ -43,6 +43,7 @@ class Facilitador(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
+        ordering = ['-id']
         verbose_name = 'Facilitador'
         verbose_name_plural = 'Facilitadores'
 
@@ -54,6 +55,7 @@ class Proveedor(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
+        ordering = ['-id']
         verbose_name = 'Proveedor'
         verbose_name_plural = 'Proveedores'
 
@@ -84,5 +86,6 @@ class Asistencia(models.Model):
     asistencia = models.BooleanField()
 
     class Meta:
+        ordering = ['-id']
         verbose_name = 'Asistencia'
         verbose_name_plural = 'Asistencias'
